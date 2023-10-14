@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Lithium</string>
 
-    <!--High-Energy Pleasant-->
+    <!-- High-Energy Pleasant -->
     <string name="blissful">Blissful</string>
     <string name="blissful_description">serene and perfect happiness</string>
 
@@ -32,7 +32,38 @@
     <string name="optimistic">Optimistic</string>
     <string name="optimistic_description">hopeful and positive</string>
 
-    <!--Low-Energy Pleasant-->
+    <!-- High-Energy Unpleasant -->
+    <string name="agitated">Agitated</string>
+    <string name="agitated_description">feeling troubled or nervous</string>
+
+    <string name="anxious">Anxious</string>
+    <string name="anxious_description">worried and uneasy about future events</string>
+
+    <string name="frustrated">Frustrated</string>
+    <string name="frustrated_description">feeling discouraged or thwarted</string>
+
+    <string name="hectic">Hectic</string>
+    <string name="hectic_description">chaotic and frenzied</string>
+
+    <string name="horny">Horny</string>
+    <string name="horny_description">filled with frustrating sexual energy</string>
+
+    <string name="irritated">Irritated</string>
+    <string name="irritated_description">annoyed and bothered</string>
+
+    <string name="nervous">Nervous</string>
+    <string name="nervous_description">anxious or apprehensive</string>
+
+    <string name="overwhelmed">Overwhelmed</string>
+    <string name="overwhelmed_description">burdened by intense emotions or tasks</string>
+
+    <string name="panicked">Panicked</string>
+    <string name="panicked_description">overwhelmed by fear or anxiety</string>
+
+    <string name="stressed">Stressed</string>
+    <string name="stressed_description">under mental or emotional pressure</string>
+
+    <!-- Low-Energy Pleasant -->
     <string name="calm">Calm</string>
     <string name="calm_description">peaceful and composed</string>
 
@@ -63,39 +94,7 @@
     <string name="tranquil">Tranquil</string>
     <string name="tranquil_description">quiet and serene</string>
 
-    <!--High-Energy Unpleasant-->
-    <string name="agitated">Agitated</string>
-    <string name="agitated_description">feeling troubled or nervous</string>
-
-    <string name="anxious">Anxious</string>
-    <string name="anxious_description">worried and uneasy about future events</string>
-
-    <string name="frustrated">Frustrated</string>
-    <string name="frustrated_description">feeling discouraged or thwarted</string>
-
-    <string name="hectic">Hectic</string>
-    <string name="hectic_description">chaotic and frenzied</string>
-
-    <string name="irritated">Irritated</string>
-    <string name="irritated_description">annoyed and bothered</string>
-
-    <string name="nervous">Nervous</string>
-    <string name="nervous_description">anxious or apprehensive</string>
-
-    <string name="overwhelmed">Overwhelmed</string>
-    <string name="overwhelmed_description">burdened by intense emotions or tasks</string>
-
-    <string name="panicked">Panicked</string>
-    <string name="panicked_description">overwhelmed by fear or anxiety</string>
-
-    <string name="stressed">Stressed</string>
-    <string name="stressed_description">under mental or emotional pressure</string>
-
-    <string name="tense">Tense</string>
-    <string name="tense_description">anxious and on edge</string>
-
-
-    <!--Low-Energy Unpleasant-->
+    <!-- Low-Energy Unpleasant -->
     <string name="apathetic">Apathetic</string>
     <string name="apathetic_description">indifferent and lacking motivation</string>
 
@@ -107,9 +106,6 @@
 
     <string name="gloomy">Gloomy</string>
     <string name="gloomy_description">dark and depressing</string>
-
-    <string name="horny">Horny</string>
-    <string name="horny_description">filled with frustrating sexual energy</string>
 
     <string name="lethargic">Lethargic</string>
     <string name="lethargic_description">lacking energy and enthusiasm</string>
@@ -125,5 +121,9 @@
 
     <string name="uninterested">Uninterested</string>
     <string name="uninterested_description">lacking interest or enthusiasm</string>
+
+    <string name="resentful">Resentful</string>
+    <string name="resentful_description">feeling bitter and angry</string>
+
 
 </resources>
