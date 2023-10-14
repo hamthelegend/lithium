@@ -1,0 +1,129 @@
+<resources>
+    <string name="app_name">Lithium</string>
+
+    <!--High-Energy Pleasant-->
+    <string name="blissful">Blissful</string>
+    <string name="blissful_description">serene and perfect happiness</string>
+
+    <string name="buoyant">Buoyant</string>
+    <string name="buoyant_description">cheerful and optimistic</string>
+
+    <string name="elated">Elated</string>
+    <string name="elated_description">overjoyed and ecstatic</string>
+
+    <string name="energetic">Energetic</string>
+    <string name="energetic_description">full of vitality and enthusiasm</string>
+
+    <string name="excited">Excited</string>
+    <string name="excited_description">feeling eager and thrilled</string>
+
+    <string name="enthusiastic">Enthusiastic</string>
+    <string name="enthusiastic_description">zealous and passionate</string>
+
+    <string name="fecund">Fecund</string>
+    <string name="fecund_description">filled with exciting sexual energy</string>
+
+    <string name="jubilant">Jubilant</string>
+    <string name="jubilant_description">exuberantly joyful and triumphant</string>
+
+    <string name="joyful">Joyful</string>
+    <string name="joyful_description">intense happiness and delight</string>
+
+    <string name="optimistic">Optimistic</string>
+    <string name="optimistic_description">hopeful and positive</string>
+
+    <!--Low-Energy Pleasant-->
+    <string name="calm">Calm</string>
+    <string name="calm_description">peaceful and composed</string>
+
+    <string name="cozy">Cozy</string>
+    <string name="cozy_description">warm and comfortable</string>
+
+    <string name="gentle">Gentle</string>
+    <string name="gentle_description">soft and mild</string>
+
+    <string name="peaceful">Peaceful</string>
+    <string name="peaceful_description">serene and undisturbed</string>
+
+    <string name="pleased">Pleased</string>
+    <string name="pleased_description">happy and satisfied</string>
+
+    <string name="relaxed">Relaxed</string>
+    <string name="relaxed_description">unwound and at ease</string>
+
+    <string name="relieved">Relieved</string>
+    <string name="relieved_description">freed from worry or stress</string>
+
+    <string name="serene">Serene</string>
+    <string name="serene_description">calm and untroubled</string>
+
+    <string name="soothing">Soothing</string>
+    <string name="soothing_description">calming and comforting</string>
+
+    <string name="tranquil">Tranquil</string>
+    <string name="tranquil_description">quiet and serene</string>
+
+    <!--High-Energy Unpleasant-->
+    <string name="agitated">Agitated</string>
+    <string name="agitated_description">feeling troubled or nervous</string>
+
+    <string name="anxious">Anxious</string>
+    <string name="anxious_description">worried and uneasy about future events</string>
+
+    <string name="frustrated">Frustrated</string>
+    <string name="frustrated_description">feeling discouraged or thwarted</string>
+
+    <string name="hectic">Hectic</string>
+    <string name="hectic_description">chaotic and frenzied</string>
+
+    <string name="irritated">Irritated</string>
+    <string name="irritated_description">annoyed and bothered</string>
+
+    <string name="nervous">Nervous</string>
+    <string name="nervous_description">anxious or apprehensive</string>
+
+    <string name="overwhelmed">Overwhelmed</string>
+    <string name="overwhelmed_description">burdened by intense emotions or tasks</string>
+
+    <string name="panicked">Panicked</string>
+    <string name="panicked_description">overwhelmed by fear or anxiety</string>
+
+    <string name="stressed">Stressed</string>
+    <string name="stressed_description">under mental or emotional pressure</string>
+
+    <string name="tense">Tense</string>
+    <string name="tense_description">anxious and on edge</string>
+
+
+    <!--Low-Energy Unpleasant-->
+    <string name="apathetic">Apathetic</string>
+    <string name="apathetic_description">indifferent and lacking motivation</string>
+
+    <string name="bored">Bored</string>
+    <string name="bored_description">uninterested and disengaged</string>
+
+    <string name="depressed">Depressed</string>
+    <string name="depressed_description">feeling sad and hopeless</string>
+
+    <string name="gloomy">Gloomy</string>
+    <string name="gloomy_description">dark and depressing</string>
+
+    <string name="horny">Horny</string>
+    <string name="horny_description">filled with frustrating sexual energy</string>
+
+    <string name="lethargic">Lethargic</string>
+    <string name="lethargic_description">lacking energy and enthusiasm</string>
+
+    <string name="melancholic">Melancholic</string>
+    <string name="melancholic_description">deeply sad and sorrowful</string>
+
+    <string name="miserable">Miserable</string>
+    <string name="miserable_description">extremely unhappy and hopeless</string>
+
+    <string name="sad">Sad</string>
+    <string name="sad_description">unhappy and sorrowful</string>
+
+    <string name="uninterested">Uninterested</string>
+    <string name="uninterested_description">lacking interest or enthusiasm</string>
+
+</resources>
