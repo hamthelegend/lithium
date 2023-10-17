@@ -1,4 +1,4 @@
-package com.thebrownfoxx.lithium.ui.screen.home.components
+package com.thebrownfoxx.lithium.ui.screen.home.component
 
 import com.thebrownfoxx.lithium.domain.CheckIn
 import java.time.LocalDate

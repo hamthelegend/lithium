@@ -1,6 +1,6 @@
 package com.thebrownfoxx.lithium.ui.screen.home
 
-import androidx.compose.material.icons.twotone.DriveFileRenameOutline
+import androidx.compose.material.icons.filled.DriveFileRenameOutline
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
@@ -19,11 +19,11 @@ import com.thebrownfoxx.lithium.domain.CheckIn
 import com.thebrownfoxx.lithium.domain.FeelingCategory
 import com.thebrownfoxx.lithium.domain.Sample
 import com.thebrownfoxx.lithium.ui.extension.floatingActionButtonExpanded
-import com.thebrownfoxx.lithium.ui.screen.home.components.CheckInTopBar
-import com.thebrownfoxx.lithium.ui.screen.home.components.CheckInsList
-import com.thebrownfoxx.lithium.ui.screen.home.components.CheckInsOfDate
-import com.thebrownfoxx.lithium.ui.screen.home.components.toCheckInsByDate
-import com.thebrownfoxx.lithium.ui.screen.home.components.toFeelingCategoriesToday
+import com.thebrownfoxx.lithium.ui.screen.home.component.CheckInsList
+import com.thebrownfoxx.lithium.ui.screen.home.component.CheckInsOfDate
+import com.thebrownfoxx.lithium.ui.screen.home.component.HomeTopBar
+import com.thebrownfoxx.lithium.ui.screen.home.component.toCheckInsByDate
+import com.thebrownfoxx.lithium.ui.screen.home.component.toFeelingCategoriesToday
 import com.thebrownfoxx.lithium.ui.theme.LithiumIcons
 import com.thebrownfoxx.lithium.ui.theme.LithiumTheme
 
@@ -33,7 +33,10 @@ fun HomeScreen(
     checkInsByDate: List<CheckInsOfDate>,
     feelingCategoriesToday: Set<FeelingCategory>,
     onCheckIn: () -> Unit,
+    checkInToDelete: CheckIn?,
     onDeleteCheckIn: (CheckIn) -> Unit,
+    onCommitDeleteCheckIn: () -> Unit,
+    onCancelDeleteCheckIn: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val scrollBehavior =
@@ -42,7 +45,7 @@ fun HomeScreen(
     Scaffold(
         modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
-            CheckInTopBar(
+            HomeTopBar(
                 feelingCategoriesToday = feelingCategoriesToday,
                 scrollBehavior = scrollBehavior,
             )
@@ -68,6 +71,12 @@ fun HomeScreen(
             contentPadding = contentPadding,
         )
     }
+
+    DeleteCheckInDialog(
+        checkInToDelete = checkInToDelete,
+        onCommitDeleteCheckIn = onCommitDeleteCheckIn,
+        onCancelDeleteCheckIn = onCancelDeleteCheckIn,
+    )
 }
 
 @Preview
@@ -81,7 +90,10 @@ fun HomeScreenPreview() {
             checkInsByDate = checkIns,
             feelingCategoriesToday = feelingCategories,
             onCheckIn = {},
+            checkInToDelete = null,
             onDeleteCheckIn = {},
+            onCommitDeleteCheckIn = {},
+            onCancelDeleteCheckIn = {},
         )
     }
 }

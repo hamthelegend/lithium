@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.view.WindowCompat
 import com.ramcosta.composedestinations.DestinationsNavHost
-import com.thebrownfoxx.lithium.ui.screen.home.NavGraphs
+import com.thebrownfoxx.lithium.ui.screen.NavGraphs
 import com.thebrownfoxx.lithium.ui.theme.LithiumTheme
 
 class MainActivity : ComponentActivity() {

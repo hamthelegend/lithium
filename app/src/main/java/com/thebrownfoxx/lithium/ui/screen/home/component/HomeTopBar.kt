@@ -1,4 +1,4 @@
-package com.thebrownfoxx.lithium.ui.screen.home.components
+package com.thebrownfoxx.lithium.ui.screen.home.component
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.fadeIn
@@ -41,17 +41,20 @@ import com.thebrownfoxx.lithium.ui.theme.LithiumTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CheckInTopBar(
+fun HomeTopBar(
     feelingCategoriesToday: Set<FeelingCategory>,
     modifier: Modifier = Modifier,
     scrollBehavior: TopAppBarScrollBehavior? = null,
 ) {
     val emptyColor = MaterialTheme.colorScheme.surfaceColorAtElevation(Elevation.level(1))
     val containerColor =
-        if (feelingCategoriesToday.isEmpty()) SolidColor(emptyColor)
-        else {
-            val stops = feelingCategoriesToday.map { it.color }
-            Brush.linearGradient(stops)
+        when (feelingCategoriesToday.size) {
+            0 -> SolidColor(emptyColor)
+            1 -> SolidColor(feelingCategoriesToday.single().color)
+            else -> {
+                val stops = feelingCategoriesToday.map { it.color }
+                Brush.linearGradient(stops)
+            }
         }
 
     ExpandedTopAppBar(
@@ -84,7 +87,7 @@ fun CheckInTopBar(
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview
 @Composable
-fun BlankCheckInTopBarPreview() {
+fun BlankHomeTopBarPreview() {
     LithiumTheme {
         val scrollBehavior =
             TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
@@ -92,7 +95,7 @@ fun BlankCheckInTopBarPreview() {
         Scaffold(
             modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
             topBar = {
-                CheckInTopBar(
+                HomeTopBar(
                     feelingCategoriesToday = setOf(),
                     scrollBehavior = scrollBehavior,
                 )
@@ -114,7 +117,7 @@ fun BlankCheckInTopBarPreview() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview
 @Composable
-fun FilledCheckInTopBarPreview() {
+fun FilledHomeTopBarPreview() {
     LithiumTheme {
         val scrollBehavior =
             TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
@@ -122,7 +125,7 @@ fun FilledCheckInTopBarPreview() {
         Scaffold(
             modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
             topBar = {
-                CheckInTopBar(
+                HomeTopBar(
                     feelingCategoriesToday = setOf(
                         HighEnergyPleasant,
                         HighEnergyUnpleasant,

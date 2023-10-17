@@ -5,22 +5,31 @@ import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.thebrownfoxx.lithium.AppViewModelProvider
+import com.thebrownfoxx.lithium.ui.screen.ScreenTransitions
+import com.thebrownfoxx.lithium.ui.screen.destinations.CheckInDestination
 
-@Destination(start = true)
+@Destination(start = true, style = ScreenTransitions::class)
 @Composable
-fun Home() {
+fun Home(
+    navigator: DestinationsNavigator,
+) {
     val viewModel: HomeViewModel = viewModel(factory = AppViewModelProvider.Factory)
 
     viewModel.apply {
         val checkInsByDate by checkInsByDate.collectAsStateWithLifecycle()
         val feelingCategoriesToday by feelingCategoriesToday.collectAsStateWithLifecycle()
+        val checkInToDelete by checkInToDelete.collectAsStateWithLifecycle()
 
         HomeScreen(
             checkInsByDate = checkInsByDate,
             feelingCategoriesToday = feelingCategoriesToday,
-            onCheckIn = { /*TODO*/ },
-            onDeleteCheckIn = { /*TODO */ },
+            onCheckIn = { navigator.navigate(CheckInDestination) },
+            checkInToDelete = checkInToDelete,
+            onDeleteCheckIn = ::onDeleteCheckIn,
+            onCommitDeleteCheckIn = ::onCommitDeleteCheckIn,
+            onCancelDeleteCheckIn = ::onCancelDeleteCheckIn,
         )
     }
 }

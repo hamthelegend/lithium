@@ -131,6 +131,13 @@
     <string name="delete">Delete</string>
     <string name="check_in">Check in</string>
     <string name="how_are_you_feeling">How are you feeling?</string>
+    <string name="back">Back</string>
+    <string name="search">Search</string>
+    <string name="clear">Clear</string>
+    <string name="delete_check_in">Delete check in</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="delete_check_in_confirmation">Are you sure you want to delete this check in of %1$s on %2$s</string>
 
 
 </resources>

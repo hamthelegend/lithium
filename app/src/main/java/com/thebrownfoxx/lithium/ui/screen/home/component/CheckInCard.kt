@@ -1,15 +1,11 @@
-package com.thebrownfoxx.lithium.ui.screen.home.components
+package com.thebrownfoxx.lithium.ui.screen.home.component
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.twotone.CheckCircle
-import androidx.compose.material.icons.twotone.NewReleases
-import androidx.compose.material.icons.twotone.Remove
-import androidx.compose.material.icons.twotone.Star
-import androidx.compose.material.icons.twotone.Warning
+import androidx.compose.material.icons.filled.Remove
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -24,9 +20,10 @@ import androidx.compose.ui.unit.dp
 import com.thebrownfoxx.lithium.R
 import com.thebrownfoxx.lithium.domain.CheckIn
 import com.thebrownfoxx.lithium.domain.Feeling
-import com.thebrownfoxx.lithium.domain.FeelingCategory.*
 import com.thebrownfoxx.lithium.ui.component.HorizontalSpacer
 import com.thebrownfoxx.lithium.ui.extension.TimeFormatter
+import com.thebrownfoxx.lithium.ui.extension.icon
+import com.thebrownfoxx.lithium.ui.extension.iconContentDescription
 import com.thebrownfoxx.lithium.ui.theme.LithiumIcons
 import com.thebrownfoxx.lithium.ui.theme.LithiumTheme
 import java.time.Instant
@@ -37,20 +34,6 @@ fun CheckInCard(
     onDelete: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val icon = when (checkIn.feeling.category) {
-        HighEnergyPleasant -> LithiumIcons.Star
-        HighEnergyUnpleasant -> LithiumIcons.NewReleases
-        LowEnergyPleasant -> LithiumIcons.Warning
-        LowEnergyUnpleasant -> LithiumIcons.CheckCircle
-    }
-
-    val iconContentDescription = when (checkIn.feeling.category) {
-        HighEnergyPleasant -> stringResource(R.string.high_energy_pleasant)
-        HighEnergyUnpleasant -> stringResource(R.string.high_energy_unpleasant)
-        LowEnergyPleasant -> stringResource(R.string.low_energy_pleasant)
-        LowEnergyUnpleasant -> stringResource(R.string.low_energy_unpleasant)
-    }
-
     LithiumTheme(feelingCategory = checkIn.feeling.category) {
         Card(modifier = modifier) {
             Row(
@@ -59,9 +42,10 @@ fun CheckInCard(
             ) {
                 Box(modifier = Modifier.size(48.dp)) {
                     Icon(
-                        imageVector = icon,
-                        contentDescription = iconContentDescription,
+                        imageVector = checkIn.feeling.category.icon,
+                        contentDescription = checkIn.feeling.category.iconContentDescription,
                         modifier = Modifier.align(Alignment.Center),
+                        tint = MaterialTheme.colorScheme.primary,
                     )
                 }
                 HorizontalSpacer(width = 4.dp)

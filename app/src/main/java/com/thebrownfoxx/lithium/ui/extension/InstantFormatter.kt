@@ -8,3 +8,6 @@ val TimeFormatter: DateTimeFormatter =
 
 val DateFormatter: DateTimeFormatter =
     DateTimeFormatter.ofPattern("LLLL d, yyyy").withZone(ZoneId.systemDefault())
+
+val TimedDateFormatter: DateTimeFormatter =
+    DateTimeFormatter.ofPattern("LLLL d, yyyy, h:mm a").withZone(ZoneId.systemDefault())

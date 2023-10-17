@@ -1,4 +1,4 @@
-package com.thebrownfoxx.lithium.ui.screen.home.components
+package com.thebrownfoxx.lithium.ui.screen.home.component
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
@@ -21,8 +21,8 @@ fun CheckInsList(
     contentPadding: PaddingValues = PaddingValues(),
 ) {
     LazyColumn(
-        verticalArrangement = Arrangement.spacedBy(16.dp),
         modifier = modifier,
+        verticalArrangement = Arrangement.spacedBy(16.dp),
         contentPadding = contentPadding + PaddingValues(16.dp) ,
     ) {
         for ((date, checkInsOfDate) in checkInsByDate.map { (key, value) -> key to value }) {

@@ -25,8 +25,8 @@ import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.icons.twotone.ArrowBack
-import androidx.compose.material.icons.twotone.MoreVert
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -63,10 +63,11 @@ import kotlin.math.abs
 fun ExpandedTopAppBar(
     collapsedContent: @Composable () -> Unit,
     modifier: Modifier = Modifier,
-    navigationIcon: @Composable () -> Unit = {},
-    actions: @Composable RowScope.() -> Unit = {},
+    navigationIcon: (@Composable () -> Unit)? = null,
+    actions: (@Composable RowScope.() -> Unit)? = null,
     scrollBehavior: TopAppBarScrollBehavior? = null,
     background: @Composable BoxScope.() -> Unit = {},
+    pinCollapsedContent: Boolean = false,
     content: @Composable BoxScope.() -> Unit,
 ) {
     val pinnedHeight = 64.dp
@@ -101,14 +102,18 @@ fun ExpandedTopAppBar(
     )
 
     // Wrap the given actions in a Row.
-    val actionsRow = @Composable {
-        Row(
-            horizontalArrangement = Arrangement.End,
-            verticalAlignment = Alignment.CenterVertically,
-            content = actions
-        )
+    val actionsRow: (@Composable () -> Unit)? = actions?.let {
+        {
+            Row(
+                horizontalArrangement = Arrangement.End,
+                verticalAlignment = Alignment.CenterVertically,
+                content = actions
+            )
+        }
     }
-    val collapsedContentAlpha = topTitleAlphaEasing.transform(2 * colorTransitionFraction - 1f)
+    val collapsedContentAlpha = topTitleAlphaEasing.transform(
+        if (pinCollapsedContent) 1f else 2 * colorTransitionFraction - 1f
+    )
     val contentAlpha = 1f - 2 * colorTransitionFraction
 
     // Set up support for resizing the top app bar when vertically dragging the bar itself.
@@ -170,21 +175,144 @@ fun ExpandedTopAppBar(
                     modifier = Modifier.height(pinnedHeight),
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
-                    HorizontalSpacer(width = 8.dp)
-                    navigationIcon()
-                    HorizontalSpacer(width = 24.dp)
+                    if (navigationIcon != null) {
+                        HorizontalSpacer(width = 8.dp)
+                        navigationIcon()
+                    }
+                    HorizontalSpacer(width = 16.dp)
                     Box(
                         modifier = Modifier
                             .graphicsLayer { alpha = collapsedContentAlpha }
-                            .weight(1f)
+                            .weight(1f),
                     ) {
                         ProvideTextStyle(value = MaterialTheme.typography.titleLarge) {
                             collapsedContent()
                         }
                     }
-                    HorizontalSpacer(width = 24.dp)
-                    actionsRow()
-                    HorizontalSpacer(width = 8.dp)
+                    HorizontalSpacer(width = 16.dp)
+                    if (actionsRow != null) {
+                        actionsRow()
+                        HorizontalSpacer(width = 8.dp)
+                    }
+                }
+            }
+        }
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun ExpandedTopAppBar(
+    pinnedContent: @Composable () -> Unit,
+    modifier: Modifier = Modifier,
+    scrollBehavior: TopAppBarScrollBehavior? = null,
+    background: @Composable BoxScope.() -> Unit = {},
+    pinCollapsedContent: Boolean = false,
+    content: @Composable BoxScope.() -> Unit,
+) {
+    val pinnedHeight = 64.dp
+    val maxHeight = 256.dp
+
+    val pinnedHeightPx: Float
+    val maxHeightPx: Float
+
+    with(LocalDensity.current) {
+        pinnedHeightPx = pinnedHeight.toPx()
+        maxHeightPx = maxHeight.toPx()
+    }
+
+    SideEffect {
+        if (scrollBehavior?.state?.heightOffsetLimit != pinnedHeightPx - maxHeightPx) {
+            scrollBehavior?.state?.heightOffsetLimit = pinnedHeightPx - maxHeightPx
+        }
+    }
+
+    // Obtain the container Color from the TopAppBarColors using the `collapsedFraction`, as the
+    // bottom part of this TwoRowsTopAppBar changes color at the same rate the app bar expands or
+    // collapse.
+    // This will potentially animate or interpolate a transition between the container color and the
+    // container's scrolled color according to the app bar's scroll state.
+    val colorTransitionFraction = scrollBehavior?.state?.collapsedFraction ?: 0f
+    val appBarContainerColor by rememberUpdatedState(
+        lerp(
+            start = MaterialTheme.colorScheme.surfaceColorAtElevation(Elevation.level(1)),
+            stop = MaterialTheme.colorScheme.surfaceColorAtElevation(Elevation.level(3)),
+            fraction = FastOutLinearInEasing.transform(colorTransitionFraction)
+        )
+    )
+    val collapsedContentAlpha = topTitleAlphaEasing.transform(
+        if (pinCollapsedContent) 1f else 2 * colorTransitionFraction - 1f
+    )
+    val contentAlpha = 1f - 2 * colorTransitionFraction
+
+    // Set up support for resizing the top app bar when vertically dragging the bar itself.
+    val appBarDragModifier = if (scrollBehavior != null && !scrollBehavior.isPinned) {
+        Modifier.draggable(
+            orientation = Orientation.Vertical,
+            state = rememberDraggableState { delta ->
+                scrollBehavior.state.heightOffset = scrollBehavior.state.heightOffset + delta
+            },
+            onDragStopped = { velocity ->
+                settleAppBar(
+                    scrollBehavior.state,
+                    velocity,
+                    scrollBehavior.flingAnimationSpec,
+                    scrollBehavior.snapAnimationSpec
+                )
+            }
+        )
+    } else {
+        Modifier
+    }
+
+    Surface(
+        modifier = modifier.then(appBarDragModifier),
+        color = appBarContainerColor,
+    ) {
+        Box {
+            Box(
+                modifier = Modifier
+                    .height(
+                        with(LocalDensity.current) {
+                            (maxHeightPx + StatusBarHeight.toPx() +
+                                    (scrollBehavior?.state?.heightOffset ?: 0f)).toDp()
+                        }
+                    ),
+            ) {
+                background()
+            }
+            Column(modifier = Modifier.statusBarsPadding()) {
+                Box(
+                    modifier = Modifier
+                        .height(
+                            with(LocalDensity.current) {
+                                (maxHeightPx - pinnedHeightPx + (scrollBehavior?.state?.heightOffset
+                                    ?: 0f)).toDp()
+                            }
+                        )
+                        .padding(top = pinnedHeight)
+                        .fillMaxWidth()
+                        .graphicsLayer { alpha = contentAlpha }
+                        .zIndex(1f),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    ProvideTextStyle(value = MaterialTheme.typography.headlineLarge) {
+                        content()
+                    }
+                }
+                Row(
+                    modifier = Modifier.height(pinnedHeight),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .graphicsLayer { alpha = collapsedContentAlpha }
+                            .weight(1f),
+                    ) {
+                        ProvideTextStyle(value = MaterialTheme.typography.titleLarge) {
+                            pinnedContent()
+                        }
+                    }
                 }
             }
         }
