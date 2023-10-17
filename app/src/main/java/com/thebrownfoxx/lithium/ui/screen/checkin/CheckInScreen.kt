@@ -3,6 +3,7 @@ package com.thebrownfoxx.lithium.ui.screen.checkin
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -71,6 +72,7 @@ fun CheckInScreen(
         ) { contentPadding ->
             Surface {
                 LazyColumn(
+                    modifier = Modifier.fillMaxSize(),
                     state = lazyListState,
                     verticalArrangement = Arrangement.spacedBy(16.dp),
                     contentPadding = contentPadding + PaddingValues(16.dp),

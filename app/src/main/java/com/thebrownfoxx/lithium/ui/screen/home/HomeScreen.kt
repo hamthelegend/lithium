@@ -1,5 +1,6 @@
 package com.thebrownfoxx.lithium.ui.screen.home
 
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.filled.DriveFileRenameOutline
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExtendedFloatingActionButton
@@ -67,7 +68,7 @@ fun HomeScreen(
         CheckInsList(
             checkInsByDate = checkInsByDate,
             onDeleteCheckIn = onDeleteCheckIn,
-            modifier = modifier,
+            modifier = Modifier.fillMaxSize(),
             contentPadding = contentPadding,
         )
     }
