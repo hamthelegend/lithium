@@ -1,5 +1,6 @@
 package com.thebrownfoxx.lithium.ui.screen.home.component
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.LazyColumn
@@ -13,6 +14,7 @@ import com.thebrownfoxx.lithium.domain.CheckIn
 import com.thebrownfoxx.lithium.ui.component.plus
 import com.thebrownfoxx.lithium.ui.extension.DateFormatter
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun CheckInsList(
     checkInsByDate: List<CheckInsOfDate>,
@@ -36,7 +38,11 @@ fun CheckInsList(
                 items = checkInsOfDate,
                 key = { it.id ?: -1 },
             ) { checkIn ->
-                CheckInCard(checkIn = checkIn, onDelete = { onDeleteCheckIn(checkIn) })
+                CheckInCard(
+                    checkIn = checkIn,
+                    onDelete = { onDeleteCheckIn(checkIn) },
+                    modifier = Modifier.animateItemPlacement(),
+                )
             }
         }
     }
