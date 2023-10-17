@@ -15,44 +15,55 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
+import com.thebrownfoxx.lithium.domain.FeelingCategory
+import com.thebrownfoxx.lithium.ui.theme.color.HighEnergyPleasantDarkColors
+import com.thebrownfoxx.lithium.ui.theme.color.HighEnergyPleasantLightColors
+import com.thebrownfoxx.lithium.ui.theme.color.HighEnergyUnpleasantDarkColors
+import com.thebrownfoxx.lithium.ui.theme.color.HighEnergyUnpleasantLightColors
+import com.thebrownfoxx.lithium.ui.theme.color.LowEnergyPleasantDarkColors
+import com.thebrownfoxx.lithium.ui.theme.color.LowEnergyPleasantLightColors
+import com.thebrownfoxx.lithium.ui.theme.color.LowEnergyUnpleasantDarkColors
+import com.thebrownfoxx.lithium.ui.theme.color.LowEnergyUnpleasantLightColors
 
-private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
-)
-
-private val LightColorScheme = lightColorScheme(
+private val lightColors = lightColorScheme(
     primary = Purple40,
     secondary = PurpleGrey40,
-    tertiary = Pink40
+    tertiary = Pink40,
+)
 
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
+private val darkColors = darkColorScheme(
+    primary = Purple80,
+    secondary = PurpleGrey80,
+    tertiary = Pink80,
 )
 
 @Composable
 fun LithiumTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
-    content: @Composable () -> Unit
+    feelingCategory: FeelingCategory? = null,
+    content: @Composable () -> Unit,
 ) {
-    val colorScheme = when {
-        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-            val context = LocalContext.current
-            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
-        }
+    val colorScheme = when (feelingCategory) {
+        FeelingCategory.HighEnergyPleasant ->
+            if (darkTheme) HighEnergyPleasantDarkColors else HighEnergyPleasantLightColors
 
-        darkTheme -> DarkColorScheme
-        else -> LightColorScheme
+        FeelingCategory.HighEnergyUnpleasant ->
+            if (darkTheme) HighEnergyUnpleasantDarkColors else HighEnergyUnpleasantLightColors
+
+        FeelingCategory.LowEnergyPleasant ->
+            if (darkTheme) LowEnergyPleasantDarkColors else LowEnergyPleasantLightColors
+
+        FeelingCategory.LowEnergyUnpleasant ->
+            if (darkTheme) LowEnergyUnpleasantDarkColors else LowEnergyUnpleasantLightColors
+
+        null -> when {
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
+                val context = LocalContext.current
+                if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
+            }
+
+            else -> if (darkTheme) darkColors else lightColors
+        }
     }
     val view = LocalView.current
     if (!view.isInEditMode) {
@@ -61,12 +72,13 @@ fun LithiumTheme(
             window.statusBarColor = Color.Transparent.toArgb()
             window.navigationBarColor = Color.Transparent.toArgb()
             WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = !darkTheme
-            WindowCompat.getInsetsController(window, view).isAppearanceLightNavigationBars = !darkTheme
+            WindowCompat.getInsetsController(window, view).isAppearanceLightNavigationBars =
+                !darkTheme
         }
     }
 
     MaterialTheme(
-        colorScheme = colorScheme,
+        colorScheme = colorScheme.animated(),
         typography = Typography,
         content = content
     )

@@ -124,6 +124,13 @@
 
     <string name="resentful">Resentful</string>
     <string name="resentful_description">feeling bitter and angry</string>
+    <string name="high_energy_pleasant">High-Energy Pleasant</string>
+    <string name="high_energy_unpleasant">High-Energy Unpleasant</string>
+    <string name="low_energy_pleasant">Low-Energy Pleasant</string>
+    <string name="low_energy_unpleasant">Low-Energy Unpleasant</string>
+    <string name="delete">Delete</string>
+    <string name="check_in">Check in</string>
+    <string name="how_are_you_feeling">How are you feeling?</string>
 
 
 </resources>

@@ -12,6 +12,7 @@ import androidx.compose.foundation.gestures.draggable
 import androidx.compose.foundation.gestures.rememberDraggableState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -26,7 +27,6 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.twotone.ArrowBack
 import androidx.compose.material.icons.twotone.MoreVert
-import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -66,7 +66,8 @@ fun ExpandedTopAppBar(
     navigationIcon: @Composable () -> Unit = {},
     actions: @Composable RowScope.() -> Unit = {},
     scrollBehavior: TopAppBarScrollBehavior? = null,
-    content: @Composable () -> Unit,
+    background: @Composable BoxScope.() -> Unit = {},
+    content: @Composable BoxScope.() -> Unit,
 ) {
     val pinnedHeight = 64.dp
     val maxHeight = 256.dp
@@ -134,44 +135,57 @@ fun ExpandedTopAppBar(
         modifier = modifier.then(appBarDragModifier),
         color = appBarContainerColor,
     ) {
-        Column(modifier = Modifier.statusBarsPadding()) {
+        Box {
             Box(
                 modifier = Modifier
                     .height(
                         with(LocalDensity.current) {
-                            (maxHeightPx - pinnedHeightPx + (scrollBehavior?.state?.heightOffset
-                                ?: 0f)).toDp()
+                            (maxHeightPx + StatusBarHeight.toPx() +
+                                    (scrollBehavior?.state?.heightOffset ?: 0f)).toDp()
                         }
-                    )
-                    .padding(top = pinnedHeight)
-                    .fillMaxWidth()
-                    .graphicsLayer { alpha = contentAlpha }
-                    .zIndex(1f),
-                contentAlignment = Alignment.Center,
+                    ),
             ) {
-                ProvideTextStyle(value = MaterialTheme.typography.headlineLarge) {
-                    content()
-                }
+                background()
             }
-            Row(
-                modifier = Modifier.height(pinnedHeight),
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                HorizontalSpacer(width = 8.dp)
-                navigationIcon()
-                HorizontalSpacer(width = 24.dp)
+            Column(modifier = Modifier.statusBarsPadding()) {
                 Box(
                     modifier = Modifier
-                        .graphicsLayer { alpha = collapsedContentAlpha }
-                        .weight(1f)
+                        .height(
+                            with(LocalDensity.current) {
+                                (maxHeightPx - pinnedHeightPx + (scrollBehavior?.state?.heightOffset
+                                    ?: 0f)).toDp()
+                            }
+                        )
+                        .padding(top = pinnedHeight)
+                        .fillMaxWidth()
+                        .graphicsLayer { alpha = contentAlpha }
+                        .zIndex(1f),
+                    contentAlignment = Alignment.Center,
                 ) {
-                    ProvideTextStyle(value = MaterialTheme.typography.titleLarge) {
-                        collapsedContent()
+                    ProvideTextStyle(value = MaterialTheme.typography.headlineLarge) {
+                        content()
                     }
                 }
-                HorizontalSpacer(width = 24.dp)
-                actionsRow()
-                HorizontalSpacer(width = 8.dp)
+                Row(
+                    modifier = Modifier.height(pinnedHeight),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    HorizontalSpacer(width = 8.dp)
+                    navigationIcon()
+                    HorizontalSpacer(width = 24.dp)
+                    Box(
+                        modifier = Modifier
+                            .graphicsLayer { alpha = collapsedContentAlpha }
+                            .weight(1f)
+                    ) {
+                        ProvideTextStyle(value = MaterialTheme.typography.titleLarge) {
+                            collapsedContent()
+                        }
+                    }
+                    HorizontalSpacer(width = 24.dp)
+                    actionsRow()
+                    HorizontalSpacer(width = 8.dp)
+                }
             }
         }
     }
@@ -182,7 +196,8 @@ fun ExpandedTopAppBar(
 @Composable
 fun ExpandedTopAppBarPreview() {
     LithiumTheme {
-        val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
+        val scrollBehavior =
+            TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
 
         Scaffold(
             modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),

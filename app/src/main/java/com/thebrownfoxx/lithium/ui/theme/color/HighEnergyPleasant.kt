@@ -1,0 +1,133 @@
+package com.thebrownfoxx.lithium.ui.theme.color
+
+import androidx.compose.material3.darkColorScheme
+import androidx.compose.material3.lightColorScheme
+import androidx.compose.ui.graphics.Color
+
+val high_energy_pleasant_light_primary = Color(0xFF8A5100)
+val high_energy_pleasant_light_onPrimary = Color(0xFFFFFFFF)
+val high_energy_pleasant_light_primaryContainer = Color(0xFFFFDCBD)
+val high_energy_pleasant_light_onPrimaryContainer = Color(0xFF2C1600)
+val high_energy_pleasant_light_secondary = Color(0xFF725A42)
+val high_energy_pleasant_light_onSecondary = Color(0xFFFFFFFF)
+val high_energy_pleasant_light_secondaryContainer = Color(0xFFFEDDBE)
+val high_energy_pleasant_light_onSecondaryContainer = Color(0xFF291806)
+val high_energy_pleasant_light_tertiary = Color(0xFF57633A)
+val high_energy_pleasant_light_onTertiary = Color(0xFFFFFFFF)
+val high_energy_pleasant_light_tertiaryContainer = Color(0xFFDBE8B5)
+val high_energy_pleasant_light_onTertiaryContainer = Color(0xFF151F01)
+val high_energy_pleasant_light_error = Color(0xFFBA1A1A)
+val high_energy_pleasant_light_errorContainer = Color(0xFFFFDAD6)
+val high_energy_pleasant_light_onError = Color(0xFFFFFFFF)
+val high_energy_pleasant_light_onErrorContainer = Color(0xFF410002)
+val high_energy_pleasant_light_background = Color(0xFFFFFBFF)
+val high_energy_pleasant_light_onBackground = Color(0xFF201B16)
+val high_energy_pleasant_light_surface = Color(0xFFFFFBFF)
+val high_energy_pleasant_light_onSurface = Color(0xFF201B16)
+val high_energy_pleasant_light_surfaceVariant = Color(0xFFF2DFD0)
+val high_energy_pleasant_light_onSurfaceVariant = Color(0xFF50453A)
+val high_energy_pleasant_light_outline = Color(0xFF837568)
+val high_energy_pleasant_light_inverseOnSurface = Color(0xFFFAEFE7)
+val high_energy_pleasant_light_inverseSurface = Color(0xFF352F2B)
+val high_energy_pleasant_light_inversePrimary = Color(0xFFFFB86D)
+val high_energy_pleasant_light_shadow = Color(0xFF000000)
+val high_energy_pleasant_light_surfaceTint = Color(0xFF8A5100)
+val high_energy_pleasant_light_outlineVariant = Color(0xFFD5C3B5)
+val high_energy_pleasant_light_scrim = Color(0xFF000000)
+
+val high_energy_pleasant_dark_primary = Color(0xFFFFB86D)
+val high_energy_pleasant_dark_onPrimary = Color(0xFF492900)
+val high_energy_pleasant_dark_primaryContainer = Color(0xFF683C00)
+val high_energy_pleasant_dark_onPrimaryContainer = Color(0xFFFFDCBD)
+val high_energy_pleasant_dark_secondary = Color(0xFFE1C1A3)
+val high_energy_pleasant_dark_onSecondary = Color(0xFF402C18)
+val high_energy_pleasant_dark_secondaryContainer = Color(0xFF59422C)
+val high_energy_pleasant_dark_onSecondaryContainer = Color(0xFFFEDDBE)
+val high_energy_pleasant_dark_tertiary = Color(0xFFBFCC9B)
+val high_energy_pleasant_dark_onTertiary = Color(0xFF2A3411)
+val high_energy_pleasant_dark_tertiaryContainer = Color(0xFF404B25)
+val high_energy_pleasant_dark_onTertiaryContainer = Color(0xFFDBE8B5)
+val high_energy_pleasant_dark_error = Color(0xFFFFB4AB)
+val high_energy_pleasant_dark_errorContainer = Color(0xFF93000A)
+val high_energy_pleasant_dark_onError = Color(0xFF690005)
+val high_energy_pleasant_dark_onErrorContainer = Color(0xFFFFDAD6)
+val high_energy_pleasant_dark_background = Color(0xFF201B16)
+val high_energy_pleasant_dark_onBackground = Color(0xFFEBE1D9)
+val high_energy_pleasant_dark_surface = Color(0xFF201B16)
+val high_energy_pleasant_dark_onSurface = Color(0xFFEBE1D9)
+val high_energy_pleasant_dark_surfaceVariant = Color(0xFF50453A)
+val high_energy_pleasant_dark_onSurfaceVariant = Color(0xFFD5C3B5)
+val high_energy_pleasant_dark_outline = Color(0xFF9D8E81)
+val high_energy_pleasant_dark_inverseOnSurface = Color(0xFF201B16)
+val high_energy_pleasant_dark_inverseSurface = Color(0xFFEBE1D9)
+val high_energy_pleasant_dark_inversePrimary = Color(0xFF8A5100)
+val high_energy_pleasant_dark_shadow = Color(0xFF000000)
+val high_energy_pleasant_dark_surfaceTint = Color(0xFFFFB86D)
+val high_energy_pleasant_dark_outlineVariant = Color(0xFF50453A)
+val high_energy_pleasant_dark_scrim = Color(0xFF000000)
+
+private val seed = Color(0xFFEE9002)
+
+val HighEnergyPleasantLightColors = lightColorScheme(
+    primary = high_energy_pleasant_light_primary,
+    onPrimary = high_energy_pleasant_light_onPrimary,
+    primaryContainer = high_energy_pleasant_light_primaryContainer,
+    onPrimaryContainer = high_energy_pleasant_light_onPrimaryContainer,
+    secondary = high_energy_pleasant_light_secondary,
+    onSecondary = high_energy_pleasant_light_onSecondary,
+    secondaryContainer = high_energy_pleasant_light_secondaryContainer,
+    onSecondaryContainer = high_energy_pleasant_light_onSecondaryContainer,
+    tertiary = high_energy_pleasant_light_tertiary,
+    onTertiary = high_energy_pleasant_light_onTertiary,
+    tertiaryContainer = high_energy_pleasant_light_tertiaryContainer,
+    onTertiaryContainer = high_energy_pleasant_light_onTertiaryContainer,
+    error = high_energy_pleasant_light_error,
+    errorContainer = high_energy_pleasant_light_errorContainer,
+    onError = high_energy_pleasant_light_onError,
+    onErrorContainer = high_energy_pleasant_light_onErrorContainer,
+    background = high_energy_pleasant_light_background,
+    onBackground = high_energy_pleasant_light_onBackground,
+    surface = high_energy_pleasant_light_surface,
+    onSurface = high_energy_pleasant_light_onSurface,
+    surfaceVariant = high_energy_pleasant_light_surfaceVariant,
+    onSurfaceVariant = high_energy_pleasant_light_onSurfaceVariant,
+    outline = high_energy_pleasant_light_outline,
+    inverseOnSurface = high_energy_pleasant_light_inverseOnSurface,
+    inverseSurface = high_energy_pleasant_light_inverseSurface,
+    inversePrimary = high_energy_pleasant_light_inversePrimary,
+    surfaceTint = high_energy_pleasant_light_surfaceTint,
+    outlineVariant = high_energy_pleasant_light_outlineVariant,
+    scrim = high_energy_pleasant_light_scrim,
+)
+
+val HighEnergyPleasantDarkColors = darkColorScheme(
+    primary = high_energy_pleasant_dark_primary,
+    onPrimary = high_energy_pleasant_dark_onPrimary,
+    primaryContainer = high_energy_pleasant_dark_primaryContainer,
+    onPrimaryContainer = high_energy_pleasant_dark_onPrimaryContainer,
+    secondary = high_energy_pleasant_dark_secondary,
+    onSecondary = high_energy_pleasant_dark_onSecondary,
+    secondaryContainer = high_energy_pleasant_dark_secondaryContainer,
+    onSecondaryContainer = high_energy_pleasant_dark_onSecondaryContainer,
+    tertiary = high_energy_pleasant_dark_tertiary,
+    onTertiary = high_energy_pleasant_dark_onTertiary,
+    tertiaryContainer = high_energy_pleasant_dark_tertiaryContainer,
+    onTertiaryContainer = high_energy_pleasant_dark_onTertiaryContainer,
+    error = high_energy_pleasant_dark_error,
+    errorContainer = high_energy_pleasant_dark_errorContainer,
+    onError = high_energy_pleasant_dark_onError,
+    onErrorContainer = high_energy_pleasant_dark_onErrorContainer,
+    background = high_energy_pleasant_dark_background,
+    onBackground = high_energy_pleasant_dark_onBackground,
+    surface = high_energy_pleasant_dark_surface,
+    onSurface = high_energy_pleasant_dark_onSurface,
+    surfaceVariant = high_energy_pleasant_dark_surfaceVariant,
+    onSurfaceVariant = high_energy_pleasant_dark_onSurfaceVariant,
+    outline = high_energy_pleasant_dark_outline,
+    inverseOnSurface = high_energy_pleasant_dark_inverseOnSurface,
+    inverseSurface = high_energy_pleasant_dark_inverseSurface,
+    inversePrimary = high_energy_pleasant_dark_inversePrimary,
+    surfaceTint = high_energy_pleasant_dark_surfaceTint,
+    outlineVariant = high_energy_pleasant_dark_outlineVariant,
+    scrim = high_energy_pleasant_dark_scrim,
+)
