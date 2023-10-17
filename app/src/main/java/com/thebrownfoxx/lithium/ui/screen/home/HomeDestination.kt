@@ -20,16 +20,15 @@ fun Home(
     viewModel.apply {
         val checkInsByDate by checkInsByDate.collectAsStateWithLifecycle()
         val feelingCategoriesToday by feelingCategoriesToday.collectAsStateWithLifecycle()
-        val checkInToDelete by checkInToDelete.collectAsStateWithLifecycle()
+        val showUndoButton by showUndoButton.collectAsStateWithLifecycle()
 
         HomeScreen(
             checkInsByDate = checkInsByDate,
             feelingCategoriesToday = feelingCategoriesToday,
             onCheckIn = { navigator.navigate(CheckInDestination) },
-            checkInToDelete = checkInToDelete,
+            showUndoButton = showUndoButton,
             onDeleteCheckIn = ::onDeleteCheckIn,
-            onCommitDeleteCheckIn = ::onCommitDeleteCheckIn,
-            onCancelDeleteCheckIn = ::onCancelDeleteCheckIn,
+            onUndoDeleteCheckIn = ::onUndoDeleteCheckIn,
         )
     }
 }

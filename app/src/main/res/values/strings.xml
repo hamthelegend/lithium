@@ -138,6 +138,7 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="delete_check_in_confirmation">Are you sure you want to delete this check in of %1$s on %2$s</string>
+    <string name="undo">Undo</string>
 
 
 </resources>

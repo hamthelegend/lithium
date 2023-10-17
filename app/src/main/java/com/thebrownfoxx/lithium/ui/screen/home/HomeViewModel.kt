@@ -11,7 +11,6 @@ import com.thebrownfoxx.lithium.ui.screen.home.component.toFeelingCategoriesToda
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
@@ -29,25 +28,28 @@ class HomeViewModel(private val lithiumRepository: LithiumRepository): ViewModel
     val feelingCategoriesToday = checkIns.map { it.toFeelingCategoriesToday() }
         .stateIn(viewModelScope, SharingStarted.Eagerly, listOf())
 
-    private val _checkInToDelete = MutableStateFlow<CheckIn?>(null)
-    val checkInToDelete = _checkInToDelete.asStateFlow()
+    private val deletedCheckIns = MutableStateFlow<List<CheckIn>>(listOf())
+
+    val showUndoButton = deletedCheckIns.map { it.isNotEmpty() }
+        .stateIn(viewModelScope, SharingStarted.Eagerly, false)
 
     fun onDeleteCheckIn(checkIn: CheckIn) {
-        _checkInToDelete.update { checkIn }
-    }
-
-    fun onCommitDeleteCheckIn() {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                checkInToDelete.value?.let { checkInToDelete ->
-                    lithiumRepository.delete(checkInToDelete.toCheckInEntity())
-                    _checkInToDelete.update { null }
-                }
+                lithiumRepository.delete(checkIn.toCheckInEntity())
+                deletedCheckIns.update { it + checkIn.copy(id = null) }
             }
         }
     }
 
-    fun onCancelDeleteCheckIn() {
-        _checkInToDelete.update { null }
+    fun onUndoDeleteCheckIn() {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                deletedCheckIns.value.lastOrNull()?.let { deletedCheckIn ->
+                    deletedCheckIns.update { it.dropLast(1) }
+                    lithiumRepository.add(deletedCheckIn.toCheckInEntity())
+                }
+            }
+        }
     }
 }

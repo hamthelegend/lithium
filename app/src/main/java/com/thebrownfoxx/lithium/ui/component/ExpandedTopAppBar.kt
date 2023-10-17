@@ -171,19 +171,22 @@ fun ExpandedTopAppBar(
                         content()
                     }
                 }
-                Row(
-                    modifier = Modifier.height(pinnedHeight),
-                    verticalAlignment = Alignment.CenterVertically,
+                Box(
+                    modifier = Modifier
+                        .height(pinnedHeight)
+                        .fillMaxWidth(),
                 ) {
                     if (navigationIcon != null) {
-                        HorizontalSpacer(width = 8.dp)
-                        navigationIcon()
+                        Row(modifier = Modifier.align(Alignment.CenterStart)) {
+                            HorizontalSpacer(width = 8.dp)
+                            navigationIcon()
+                        }
                     }
                     HorizontalSpacer(width = 16.dp)
                     Box(
                         modifier = Modifier
                             .graphicsLayer { alpha = collapsedContentAlpha }
-                            .weight(1f),
+                            .align(Alignment.Center),
                     ) {
                         ProvideTextStyle(value = MaterialTheme.typography.titleLarge) {
                             collapsedContent()
@@ -191,8 +194,10 @@ fun ExpandedTopAppBar(
                     }
                     HorizontalSpacer(width = 16.dp)
                     if (actionsRow != null) {
-                        actionsRow()
-                        HorizontalSpacer(width = 8.dp)
+                        Row(modifier = Modifier.align(Alignment.CenterEnd)) {
+                            actionsRow()
+                            HorizontalSpacer(width = 8.dp)
+                        }
                     }
                 }
             }

@@ -32,7 +32,7 @@ fun Density.sharedXAxis(forward: Boolean = true) =
 fun sharedZAxis(forward: Boolean = true) =
     sharedZAxisEnter(forward) togetherWith sharedZAxisExit(forward)
 
-fun sharedZAxisEnter(forward: Boolean) = scaleIn(
+fun sharedZAxisEnter(forward: Boolean = true) = scaleIn(
     animationSpec = tween(durationMillis = 300),
     initialScale = if (forward) 0.8f else 1.1f,
 ) + fadeIn(
@@ -42,7 +42,7 @@ fun sharedZAxisEnter(forward: Boolean) = scaleIn(
     ),
 )
 
-fun sharedZAxisExit(forward: Boolean) = scaleOut(
+fun sharedZAxisExit(forward: Boolean = true) = scaleOut(
     animationSpec = tween(durationMillis = 300),
     targetScale = if (forward) 1.1f else 0.8f,
 ) + fadeOut(animationSpec = tween(durationMillis = 90))

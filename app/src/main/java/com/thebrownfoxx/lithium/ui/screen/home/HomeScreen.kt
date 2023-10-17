@@ -34,10 +34,9 @@ fun HomeScreen(
     checkInsByDate: List<CheckInsOfDate>,
     feelingCategoriesToday: List<FeelingCategory>,
     onCheckIn: () -> Unit,
-    checkInToDelete: CheckIn?,
     onDeleteCheckIn: (CheckIn) -> Unit,
-    onCommitDeleteCheckIn: () -> Unit,
-    onCancelDeleteCheckIn: () -> Unit,
+    showUndoButton: Boolean,
+    onUndoDeleteCheckIn: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val scrollBehavior =
@@ -49,6 +48,8 @@ fun HomeScreen(
             HomeTopBar(
                 feelingCategoriesToday = feelingCategoriesToday,
                 scrollBehavior = scrollBehavior,
+                showUndoButton = showUndoButton,
+                onUndoDeleteCheckIn = onUndoDeleteCheckIn,
             )
         },
         floatingActionButton = {
@@ -72,12 +73,6 @@ fun HomeScreen(
             contentPadding = contentPadding,
         )
     }
-
-    DeleteCheckInDialog(
-        checkInToDelete = checkInToDelete,
-        onCommitDeleteCheckIn = onCommitDeleteCheckIn,
-        onCancelDeleteCheckIn = onCancelDeleteCheckIn,
-    )
 }
 
 @Preview
@@ -91,10 +86,9 @@ fun HomeScreenPreview() {
             checkInsByDate = checkIns,
             feelingCategoriesToday = feelingCategories,
             onCheckIn = {},
-            checkInToDelete = null,
+            showUndoButton = true,
             onDeleteCheckIn = {},
-            onCommitDeleteCheckIn = {},
-            onCancelDeleteCheckIn = {},
+            onUndoDeleteCheckIn = {},
         )
     }
 }
