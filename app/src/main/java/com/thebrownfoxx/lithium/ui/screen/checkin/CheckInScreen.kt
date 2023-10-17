@@ -57,6 +57,7 @@ fun CheckInScreen(
             modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
             topBar = {
                 CheckInTopBar(
+                    feelingCategory = feelingCategory,
                     searchQuery = searchQuery,
                     onSearchQueryChange = onSearchQueryChange,
                     onNavigateUp = onNavigateUp,

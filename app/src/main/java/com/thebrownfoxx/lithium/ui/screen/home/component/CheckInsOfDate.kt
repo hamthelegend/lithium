@@ -15,5 +15,5 @@ fun List<CheckIn>.toCheckInsByDate() =
 
 fun List<CheckIn>.toFeelingCategoriesToday() =
     filter { it.instant.atZone(ZoneId.systemDefault()).toLocalDate() == LocalDate.now() }
-        .groupBy { it.feeling.category }
-        .keys
+        .map { it.feeling.category }
+        .sorted()

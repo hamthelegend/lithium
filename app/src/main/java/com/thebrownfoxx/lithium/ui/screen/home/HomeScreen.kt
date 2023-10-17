@@ -32,7 +32,7 @@ import com.thebrownfoxx.lithium.ui.theme.LithiumTheme
 @Composable
 fun HomeScreen(
     checkInsByDate: List<CheckInsOfDate>,
-    feelingCategoriesToday: Set<FeelingCategory>,
+    feelingCategoriesToday: List<FeelingCategory>,
     onCheckIn: () -> Unit,
     checkInToDelete: CheckIn?,
     onDeleteCheckIn: (CheckIn) -> Unit,

@@ -27,7 +27,7 @@ class HomeViewModel(private val lithiumRepository: LithiumRepository): ViewModel
         .stateIn(viewModelScope, SharingStarted.Eagerly, listOf())
 
     val feelingCategoriesToday = checkIns.map { it.toFeelingCategoriesToday() }
-        .stateIn(viewModelScope, SharingStarted.Eagerly, setOf())
+        .stateIn(viewModelScope, SharingStarted.Eagerly, listOf())
 
     private val _checkInToDelete = MutableStateFlow<CheckIn?>(null)
     val checkInToDelete = _checkInToDelete.asStateFlow()

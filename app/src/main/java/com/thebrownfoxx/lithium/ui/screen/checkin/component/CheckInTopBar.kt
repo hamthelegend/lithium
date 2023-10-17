@@ -1,5 +1,6 @@
 package com.thebrownfoxx.lithium.ui.screen.checkin.component
 
+import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
@@ -28,9 +29,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.thebrownfoxx.lithium.R
+import com.thebrownfoxx.lithium.domain.FeelingCategory
+import com.thebrownfoxx.lithium.domain.FeelingCategory.*
 import com.thebrownfoxx.lithium.ui.component.ExpandedTopAppBar
 import com.thebrownfoxx.lithium.ui.component.plus
 import com.thebrownfoxx.lithium.ui.theme.LithiumIcons
@@ -39,12 +43,21 @@ import com.thebrownfoxx.lithium.ui.theme.LithiumTheme
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CheckInTopBar(
+    feelingCategory: FeelingCategory?,
     searchQuery: String,
     onSearchQueryChange: (String) -> Unit,
     onNavigateUp: () -> Unit,
     modifier: Modifier = Modifier,
     scrollBehavior: TopAppBarScrollBehavior? = null,
 ) {
+    val text = when (feelingCategory) {
+        null -> stringResource(R.string.check_in)
+        HighEnergyPleasant -> stringResource(R.string.high_energy_pleasant)
+        HighEnergyUnpleasant -> stringResource(R.string.high_energy_unpleasant)
+        LowEnergyPleasant -> stringResource(R.string.low_energy_pleasant)
+        LowEnergyUnpleasant -> stringResource(R.string.low_energy_unpleasant)
+    }
+
     ExpandedTopAppBar(
         modifier = modifier,
         scrollBehavior = scrollBehavior,
@@ -61,6 +74,8 @@ fun CheckInTopBar(
                     focusedContainerColor = Color.Transparent,
                     unfocusedContainerColor = Color.Transparent,
                     errorContainerColor = Color.Transparent,
+                    unfocusedIndicatorColor = Color.Transparent,
+                    focusedIndicatorColor = Color.Transparent,
                 ),
                 leadingIcon = {
                     IconButton(onClick = onNavigateUp) {
@@ -84,7 +99,13 @@ fun CheckInTopBar(
         },
         pinCollapsedContent = true,
     ) {
-        Text(text = stringResource(R.string.check_in))
+        AnimatedContent(targetState = text) { text ->
+            Text(
+                text = text,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.padding(horizontal = 16.dp),
+            )
+        }
     }
 }
 
@@ -98,11 +119,11 @@ fun CheckInTopBarPreview() {
         TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
 
     LithiumTheme {
-
         Scaffold(
             modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
             topBar = {
                 CheckInTopBar(
+                    feelingCategory = null,
                     searchQuery = query,
                     onSearchQueryChange = { query = it },
                     scrollBehavior = scrollBehavior,

@@ -1,11 +1,13 @@
 package com.thebrownfoxx.lithium.ui.screen.checkin.component
 
 import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -34,26 +36,39 @@ fun FeelingCategoryFilter(
     modifier: Modifier = Modifier,
 ) {
     Column(
-        modifier = modifier,
+        modifier = modifier.width(64.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         for (category in FeelingCategory.entries) {
+            val selected = selectedFeelingCategory == category
             LithiumTheme(feelingCategory = category) {
-                val color by animateColorAsState(
-                    if (selectedFeelingCategory == category) MaterialTheme.colorScheme.primary
-                    else MaterialTheme.colorScheme.primaryContainer
+                val containerColor by animateColorAsState(
+                    if (selected) MaterialTheme.colorScheme.primary
+                    else MaterialTheme.colorScheme.secondaryContainer
                 )
+                val contentColor by animateColorAsState(
+                    if (selected) MaterialTheme.colorScheme.onPrimary
+                    else MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.6f)
+                )
+
+                val containerSize by animateDpAsState(if (selected) 64.dp else 48.dp)
+                val contentSize by animateDpAsState(if (selected) 32.dp else 24.dp)
+
                 Surface(
                     shape = CircleShape,
-                    color = color,
+                    color = containerColor,
+                    contentColor = contentColor,
                     shadowElevation = Elevation.level(3),
                     onClick = { onSelectedFeelingCategoryChange(category) },
                 ) {
-                    Box(modifier = Modifier.size(48.dp)) {
+                    Box(modifier = Modifier.size(containerSize)) {
                         Icon(
                             imageVector = category.icon,
                             contentDescription = category.iconContentDescription,
-                            modifier = Modifier.align(Alignment.Center),
+                            modifier = Modifier
+                                .size(contentSize)
+                                .align(Alignment.Center),
                         )
                     }
                 }

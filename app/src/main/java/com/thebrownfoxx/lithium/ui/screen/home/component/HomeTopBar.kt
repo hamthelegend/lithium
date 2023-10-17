@@ -42,7 +42,7 @@ import com.thebrownfoxx.lithium.ui.theme.LithiumTheme
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeTopBar(
-    feelingCategoriesToday: Set<FeelingCategory>,
+    feelingCategoriesToday: List<FeelingCategory>,
     modifier: Modifier = Modifier,
     scrollBehavior: TopAppBarScrollBehavior? = null,
 ) {
@@ -96,7 +96,7 @@ fun BlankHomeTopBarPreview() {
             modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
             topBar = {
                 HomeTopBar(
-                    feelingCategoriesToday = setOf(),
+                    feelingCategoriesToday = listOf(),
                     scrollBehavior = scrollBehavior,
                 )
             }
@@ -126,7 +126,7 @@ fun FilledHomeTopBarPreview() {
             modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
             topBar = {
                 HomeTopBar(
-                    feelingCategoriesToday = setOf(
+                    feelingCategoriesToday = listOf(
                         HighEnergyPleasant,
                         HighEnergyUnpleasant,
                         LowEnergyPleasant,
