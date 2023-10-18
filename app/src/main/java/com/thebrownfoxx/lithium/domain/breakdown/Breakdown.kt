@@ -1,5 +1,7 @@
-package com.thebrownfoxx.lithium.domain
+package com.thebrownfoxx.lithium.domain.breakdown
 
+import com.thebrownfoxx.lithium.domain.Feeling
+import com.thebrownfoxx.lithium.domain.FeelingCategory
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.LocalTime
@@ -21,8 +23,9 @@ typealias WeeklyMood = Map<DayOfWeek, FeelingCategoryPercents>
 
 data class Breakdown(
     val datePeriod: OpenEndRange<LocalDate>,
-    val feelingCategoryPercents: FeelingCategoryPercents,
-    val feelingFrequencies: FeelingFrequencies,
+    val overallMood: FeelingCategoryPercents,
+    val topFeelings: FeelingFrequencies,
+    val allFeelings: FeelingFrequencies,
     val dailyMood: DailyMood,
     val weeklyMood: WeeklyMood,
 )

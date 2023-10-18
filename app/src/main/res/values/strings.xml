@@ -139,6 +139,14 @@
     <string name="no">No</string>
     <string name="delete_check_in_confirmation">Are you sure you want to delete this check in of %1$s on %2$s</string>
     <string name="undo">Undo</string>
+    <string name="all_time_breakdown">All-time Breakdown</string>
+    <string name="yearly_breakdown">Yearly Breakdown</string>
+    <string name="monthly_breakdown">Monthly Breakdown</string>
+    <string name="toggle_breakdown_period">Toggle breakdown period</string>
+    <string name="all_time">All-time</string>
+    <string name="overall_mood">Overall mood</string>
+    <string name="all_feelings">All feelings</string>
+    <string name="more">More</string>
 
 
 </resources>

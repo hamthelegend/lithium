@@ -14,17 +14,12 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -32,13 +27,10 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ProvideTextStyle
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.material3.TopAppBarState
-import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
@@ -48,12 +40,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.lerp
-import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Velocity
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
+import com.thebrownfoxx.lithium.ui.extension.ExpandedTopBarPreview
 import com.thebrownfoxx.lithium.ui.theme.LithiumIcons
 import com.thebrownfoxx.lithium.ui.theme.LithiumTheme
 import kotlin.math.abs
@@ -93,13 +85,15 @@ fun ExpandedTopAppBar(
     // This will potentially animate or interpolate a transition between the container color and the
     // container's scrolled color according to the app bar's scroll state.
     val colorTransitionFraction = scrollBehavior?.state?.collapsedFraction ?: 0f
-    val appBarContainerColor by rememberUpdatedState(
-        lerp(
-            start = MaterialTheme.colorScheme.surfaceColorAtElevation(Elevation.level(1)),
-            stop = MaterialTheme.colorScheme.surfaceColorAtElevation(Elevation.level(3)),
-            fraction = FastOutLinearInEasing.transform(colorTransitionFraction)
-        )
-    )
+    val appBarContainerColor =
+        MaterialTheme.colorScheme.surfaceColorAtElevation(Elevation.level(3))
+//    val appBarContainerColor by rememberUpdatedState(
+//        lerp(
+//            start = MaterialTheme.colorScheme.surfaceColorAtElevation(Elevation.level(1)),
+//            stop = MaterialTheme.colorScheme.surfaceColorAtElevation(Elevation.level(3)),
+//            fraction = FastOutLinearInEasing.transform(colorTransitionFraction)
+//        )
+//    )
 
     // Wrap the given actions in a Row.
     val actionsRow: (@Composable () -> Unit)? = actions?.let {
@@ -329,38 +323,22 @@ fun ExpandedTopAppBar(
 @Composable
 fun ExpandedTopAppBarPreview() {
     LithiumTheme {
-        val scrollBehavior =
-            TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
-
-        Scaffold(
-            modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
-            topBar = {
-                ExpandedTopAppBar(
-                    collapsedContent = { Text(text = "Collapsed") },
-                    navigationIcon = {
-                        IconButton(onClick = {}) {
-                            Icon(imageVector = LithiumIcons.ArrowBack, contentDescription = "Back")
-                        }
-                    },
-                    actions = {
-                        IconButton(onClick = {}) {
-                            Icon(imageVector = LithiumIcons.MoreVert, contentDescription = "More")
-                        }
-                    },
-                    scrollBehavior = scrollBehavior,
-                ) {
-                    Text(text = "Expanded")
-                }
-            }
-        ) { contentPadding ->
-            LazyColumn(
-                modifier = Modifier.fillMaxWidth(),
-                contentPadding = contentPadding + PaddingValues(16.dp) +
-                        WindowInsets.navigationBars.asPaddingValues(),
+        ExpandedTopBarPreview { scrollBehavior ->
+            ExpandedTopAppBar(
+                collapsedContent = { Text(text = "Collapsed") },
+                navigationIcon = {
+                    IconButton(onClick = {}) {
+                        Icon(imageVector = LithiumIcons.ArrowBack, contentDescription = "Back")
+                    }
+                },
+                actions = {
+                    IconButton(onClick = {}) {
+                        Icon(imageVector = LithiumIcons.MoreVert, contentDescription = "More")
+                    }
+                },
+                scrollBehavior = scrollBehavior,
             ) {
-                items(1000) {
-                    Text(text = it.toString())
-                }
+                Text(text = "Expanded")
             }
         }
     }

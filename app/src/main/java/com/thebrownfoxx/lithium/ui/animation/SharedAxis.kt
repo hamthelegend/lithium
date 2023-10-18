@@ -1,4 +1,4 @@
-package com.thebrownfoxx.lithium.ui.screen.animation
+package com.thebrownfoxx.lithium.ui.animation
 
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn

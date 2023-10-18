@@ -1,5 +1,6 @@
-package com.thebrownfoxx.lithium.domain
+package com.thebrownfoxx.lithium.domain.breakdown
 
+import com.thebrownfoxx.lithium.domain.CheckIn
 import com.thebrownfoxx.lithium.extension.inBetween
 import java.time.LocalDate
 import kotlin.math.roundToInt
@@ -13,6 +14,11 @@ fun List<CheckIn>.toBreakdown(datePeriod: OpenEndRange<LocalDate>): Breakdown {
 
     val feelingFrequencies = groupBy { it.feeling }.mapValues { it.value.size }
 
+    val topFeelings = feelingFrequencies.entries
+        .sortedByDescending { it.value }
+        .take(10)
+        .associate { (key, value) -> key to value }
+
     val dailyMood = groupBy { checkIn ->
         DayPeriod.entries.first { dayPeriod ->
             checkIn.localDateTime.toLocalTime() inBetween dayPeriod.range
@@ -24,8 +30,9 @@ fun List<CheckIn>.toBreakdown(datePeriod: OpenEndRange<LocalDate>): Breakdown {
 
     return Breakdown(
         datePeriod = datePeriod,
-        feelingCategoryPercents = feelingCategoryPercents,
-        feelingFrequencies = feelingFrequencies,
+        overallMood = feelingCategoryPercents,
+        topFeelings = topFeelings,
+        allFeelings = feelingFrequencies,
         dailyMood = dailyMood,
         weeklyMood = weeklyMood,
     )

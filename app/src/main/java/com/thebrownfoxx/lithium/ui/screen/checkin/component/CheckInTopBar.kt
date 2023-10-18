@@ -1,25 +1,17 @@
 package com.thebrownfoxx.lithium.ui.screen.checkin.component
 
 import androidx.compose.animation.AnimatedContent
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
-import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -27,7 +19,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -36,7 +27,7 @@ import com.thebrownfoxx.lithium.R
 import com.thebrownfoxx.lithium.domain.FeelingCategory
 import com.thebrownfoxx.lithium.domain.FeelingCategory.*
 import com.thebrownfoxx.lithium.ui.component.ExpandedTopAppBar
-import com.thebrownfoxx.lithium.ui.component.plus
+import com.thebrownfoxx.lithium.ui.extension.ExpandedTopBarPreview
 import com.thebrownfoxx.lithium.ui.theme.LithiumIcons
 import com.thebrownfoxx.lithium.ui.theme.LithiumTheme
 
@@ -115,31 +106,15 @@ fun CheckInTopBar(
 fun CheckInTopBarPreview() {
     var query by remember { mutableStateOf("") }
 
-    val scrollBehavior =
-        TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
-
     LithiumTheme {
-        Scaffold(
-            modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
-            topBar = {
-                CheckInTopBar(
-                    feelingCategory = null,
-                    searchQuery = query,
-                    onSearchQueryChange = { query = it },
-                    scrollBehavior = scrollBehavior,
-                    onNavigateUp = {},
-                )
-            }
-        ) { contentPadding ->
-            LazyColumn(
-                modifier = Modifier.fillMaxWidth(),
-                contentPadding = contentPadding + PaddingValues(16.dp) +
-                        WindowInsets.navigationBars.asPaddingValues(),
-            ) {
-                items(1000) {
-                    Text(text = it.toString())
-                }
-            }
+        ExpandedTopBarPreview { scrollBehavior ->
+            CheckInTopBar(
+                feelingCategory = null,
+                searchQuery = query,
+                onSearchQueryChange = { query = it },
+                scrollBehavior = scrollBehavior,
+                onNavigateUp = {},
+            )
         }
     }
 }
