@@ -1,5 +1,6 @@
 package com.thebrownfoxx.lithium.ui.screen.home
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.filled.DriveFileRenameOutline
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -15,10 +16,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.thebrownfoxx.lithium.R
 import com.thebrownfoxx.lithium.domain.CheckIn
 import com.thebrownfoxx.lithium.domain.FeelingCategory
 import com.thebrownfoxx.lithium.domain.Sample
+import com.thebrownfoxx.lithium.ui.component.plus
 import com.thebrownfoxx.lithium.ui.extension.floatingActionButtonExpanded
 import com.thebrownfoxx.lithium.ui.screen.home.component.CheckInsList
 import com.thebrownfoxx.lithium.ui.screen.home.component.CheckInsOfDate
@@ -70,7 +73,7 @@ fun HomeScreen(
             checkInsByDate = checkInsByDate,
             onDeleteCheckIn = onDeleteCheckIn,
             modifier = Modifier.fillMaxSize(),
-            contentPadding = contentPadding,
+            contentPadding = contentPadding + PaddingValues(16.dp),
         )
     }
 }
