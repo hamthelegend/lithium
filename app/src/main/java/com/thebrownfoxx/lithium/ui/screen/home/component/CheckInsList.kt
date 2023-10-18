@@ -3,8 +3,6 @@ package com.thebrownfoxx.lithium.ui.screen.home.component
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -28,21 +26,26 @@ fun CheckInsList(
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(),
 ) {
-    val horizontalPadding = PaddingValues(start = contentPadding.start, end = contentPadding.end)
+    val verticalContentPadding = PaddingValues(
+        top = contentPadding.top,
+        bottom = contentPadding.bottom,
+    )
+    val horizontalContentPadding = PaddingValues(
+        start = contentPadding.start,
+        end = contentPadding.end,
+    )
 
     LazyColumn(
         modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(16.dp),
+        contentPadding = verticalContentPadding,
     ) {
-        item {
-            Spacer(modifier = Modifier.height(contentPadding.top))
-        }
         for ((date, checkInsOfDate) in checkInsByDate.map { (key, value) -> key to value }) {
             item {
                 Text(
                     text = DateFormatter.format(date),
                     style = MaterialTheme.typography.titleMedium,
-                    modifier = Modifier.padding(horizontalPadding),
+                    modifier = Modifier.padding(horizontalContentPadding),
                 )
             }
             items(
@@ -53,12 +56,9 @@ fun CheckInsList(
                     checkIn = checkIn,
                     onSwipe = { onDeleteCheckIn(checkIn) },
                     modifier = Modifier.animateItemPlacement(),
-                    contentPadding = horizontalPadding,
+                    contentPadding = PaddingValues(horizontal = 16.dp),
                 )
             }
-        }
-        item {
-            Spacer(modifier = Modifier.height(contentPadding.bottom))
         }
     }
 }
