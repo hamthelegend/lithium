@@ -18,6 +18,8 @@ import com.thebrownfoxx.lithium.ui.component.start
 import com.thebrownfoxx.lithium.ui.component.top
 import com.thebrownfoxx.lithium.ui.extension.DateFormatter
 
+// TODO: Fix visual bug when adding a new element where the bottom elements are not exiting properly
+
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun CheckInsList(
