@@ -39,9 +39,13 @@ fun List<CheckIn>.toBreakdown(datePeriod: OpenEndRange<LocalDate>): Breakdown {
 }
 
 fun List<CheckIn>.toBreakdowns(): Breakdowns {
-    val earliestCheckInDate = minOf { it.localDateTime.toLocalDate() }
-    val latestCheckInDate = maxOf { it.localDateTime.toLocalDate() }
-    val allTimeBreakdown = toBreakdown(earliestCheckInDate..<latestCheckInDate)
+    val earliestCheckInDate = minOfOrNull { it.localDateTime.toLocalDate() }
+    val latestCheckInDate = maxOfOrNull { it.localDateTime.toLocalDate() }
+    val allTimeBreakdown = earliestCheckInDate?.let {
+        latestCheckInDate?.let {
+            toBreakdown(earliestCheckInDate..<latestCheckInDate)
+        }
+    }
 
     val yearlyBreakdown = groupBy { it.localDateTime.year }
         .map { (year, checkIn) ->

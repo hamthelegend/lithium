@@ -24,12 +24,12 @@ import com.thebrownfoxx.lithium.ui.theme.LithiumIcons
 import com.thebrownfoxx.lithium.ui.theme.LithiumTheme
 
 @Composable
-fun AllFeelings(
+fun TopFeelingsCard(
     topFeelings: FeelingFrequencies,
     modifier: Modifier = Modifier,
 ) {
-    Graph(
-        label = stringResource(R.string.all_feelings),
+    GraphCard(
+        label = stringResource(R.string.top_feelings),
         modifier = modifier,
     ) {
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -57,11 +57,11 @@ fun AllFeelings(
 
 @Preview
 @Composable
-fun AllFeelingsPreview() {
-    val topFeelings = remember { Sample.CheckIns.toBreakdowns().allTime.topFeelings }
+fun TopFeelingsCardPreview() {
+    val topFeelings = remember { Sample.CheckIns.toBreakdowns().allTime!!.topFeelings }
 
     LithiumTheme {
-        AllFeelings(
+        TopFeelingsCard(
             topFeelings = topFeelings,
             modifier = Modifier.padding(16.dp),
         )

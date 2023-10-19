@@ -1,4 +1,4 @@
-package com.thebrownfoxx.lithium.ui.screen.breakdown.component
+package com.thebrownfoxx.lithium.ui.screen.breakdown.component.graph
 
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -12,15 +12,14 @@ import com.thebrownfoxx.lithium.R
 import com.thebrownfoxx.lithium.domain.Sample
 import com.thebrownfoxx.lithium.domain.breakdown.FeelingCategoryPercents
 import com.thebrownfoxx.lithium.domain.breakdown.feelingCategoryPercents
-import com.thebrownfoxx.lithium.ui.screen.breakdown.component.graph.Graph
-import com.thebrownfoxx.lithium.ui.screen.breakdown.component.graph.MoodBar
+import com.thebrownfoxx.lithium.ui.theme.LithiumTheme
 
 @Composable
-fun OverallMoodGraph(
+fun OverallMoodCard(
     feelingCategoryPercents: FeelingCategoryPercents,
     modifier: Modifier = Modifier,
 ) {
-    Graph(
+    GraphCard(
         label = stringResource(R.string.overall_mood),
         modifier = modifier,
     ) {
@@ -33,16 +32,13 @@ fun OverallMoodGraph(
 
 @Preview
 @Composable
-fun GraphPreview() {
+fun OverallMoodCardPreview() {
     val feelingCategoryPercents = remember { Sample.CheckIns.feelingCategoryPercents }
 
-    Graph(
-        label = "Overall mood",
-        modifier = Modifier.padding(16.dp),
-    ) {
-        MoodBar(
+    LithiumTheme {
+        OverallMoodCard(
             feelingCategoryPercents = feelingCategoryPercents,
-            modifier = Modifier.height(256.dp)
+            modifier = Modifier.padding(16.dp),
         )
     }
 }

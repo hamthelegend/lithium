@@ -1,20 +1,26 @@
 package com.thebrownfoxx.lithium.ui.screen.home
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.filled.DriveFileRenameOutline
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.thebrownfoxx.lithium.R
@@ -40,6 +46,8 @@ fun HomeScreen(
     onDeleteCheckIn: (CheckIn) -> Unit,
     showUndoButton: Boolean,
     onUndoDeleteCheckIn: () -> Unit,
+    onShowBreakdown: () -> Unit,
+    showBreakdownButton: Boolean,
     modifier: Modifier = Modifier,
 ) {
     val scrollBehavior =
@@ -53,6 +61,8 @@ fun HomeScreen(
                 scrollBehavior = scrollBehavior,
                 showUndoButton = showUndoButton,
                 onUndoDeleteCheckIn = onUndoDeleteCheckIn,
+                showBreakdownButton = showBreakdownButton,
+                onShowBreakdown = onShowBreakdown,
             )
         },
         floatingActionButton = {
@@ -69,12 +79,28 @@ fun HomeScreen(
             )
         },
     ) { contentPadding ->
-        CheckInsList(
-            checkInsByDate = checkInsByDate,
-            onDeleteCheckIn = onDeleteCheckIn,
-            modifier = Modifier.fillMaxSize(),
-            contentPadding = contentPadding + PaddingValues(16.dp),
-        )
+        if (checkInsByDate.isNotEmpty()) {
+            CheckInsList(
+                checkInsByDate = checkInsByDate,
+                onDeleteCheckIn = onDeleteCheckIn,
+                modifier = Modifier.fillMaxSize(),
+                contentPadding = contentPadding + PaddingValues(16.dp),
+            )
+        } else {
+            Box(
+                modifier = Modifier
+                    .padding(contentPadding + PaddingValues(16.dp))
+                    .fillMaxSize()
+            ){
+                Text(
+                    text = "Hello, world!",
+                    style = MaterialTheme.typography.headlineLarge,
+                    fontFamily = FontFamily.Cursive,
+                    fontWeight = FontWeight.ExtraBold,
+                    modifier = Modifier.align(Alignment.Center),
+                )
+            }
+        }
     }
 }
 
@@ -92,6 +118,8 @@ fun HomeScreenPreview() {
             showUndoButton = true,
             onDeleteCheckIn = {},
             onUndoDeleteCheckIn = {},
+            onShowBreakdown = {},
+            showBreakdownButton = true,
         )
     }
 }

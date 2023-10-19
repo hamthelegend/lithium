@@ -33,6 +33,9 @@ class HomeViewModel(private val lithiumRepository: LithiumRepository): ViewModel
     val showUndoButton = deletedCheckIns.map { it.isNotEmpty() }
         .stateIn(viewModelScope, SharingStarted.Eagerly, false)
 
+    val showBreakdownButton = checkIns.map { it.isNotEmpty() }
+        .stateIn(viewModelScope, SharingStarted.Eagerly, false)
+
     fun onDeleteCheckIn(checkIn: CheckIn) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {

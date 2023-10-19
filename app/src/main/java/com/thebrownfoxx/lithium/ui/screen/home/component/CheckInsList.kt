@@ -43,11 +43,13 @@ fun CheckInsList(
         contentPadding = verticalContentPadding,
     ) {
         for ((date, checkInsOfDate) in checkInsByDate.map { (key, value) -> key to value }) {
-            item {
+            item(key = date) {
                 Text(
                     text = DateFormatter.format(date),
                     style = MaterialTheme.typography.titleMedium,
-                    modifier = Modifier.padding(horizontalContentPadding),
+                    modifier = Modifier
+                        .padding(horizontalContentPadding)
+                        .animateItemPlacement(),
                 )
             }
             items(

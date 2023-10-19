@@ -37,33 +37,36 @@ fun MoodBar(
             for (feelingCategory in entries) {
                 val percent = feelingCategoryPercents[feelingCategory] ?: 0
                 var showPercentLabel by remember { mutableStateOf(true) }
-                
-                LithiumTheme(feelingCategory = feelingCategory) {
-                    Surface(
-                        color = MaterialTheme.colorScheme.primaryContainer,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .weight(percent.toFloat()),
-                    ) {
-                        Box {
-                            if (showPercentLabel) {
-                                Surface(
-                                    shape = CircleShape,
-                                    color = MaterialTheme.colorScheme.primary,
-                                    modifier = Modifier.align(Alignment.Center),
-                                ) {
-                                    Text(
-                                        text = "$percent%",
-                                        fontWeight = FontWeight.ExtraBold,
-                                        onTextLayout = { layoutResult ->
-                                            if (layoutResult.didOverflowHeight)
-                                                showPercentLabel = false
-                                        },
-                                        modifier = Modifier.padding(
-                                            horizontal = 8.dp,
-                                            vertical = 4.dp,
-                                        ),
-                                    )
+
+                if (percent > 0) {
+                    LithiumTheme(feelingCategory = feelingCategory) {
+                        Surface(
+                            color = MaterialTheme.colorScheme.primaryContainer,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .weight(percent.toFloat()),
+                        ) {
+                            Box {
+                                if (showPercentLabel) {
+                                    Surface(
+                                        shape = CircleShape,
+                                        color = MaterialTheme.colorScheme.primary,
+                                        modifier = Modifier.align(Alignment.Center),
+                                    ) {
+                                        Text(
+                                            text = "$percent%",
+                                            fontWeight = FontWeight.ExtraBold,
+                                            maxLines = 1,
+                                            onTextLayout = { layoutResult ->
+                                                if (layoutResult.didOverflowHeight)
+                                                    showPercentLabel = false
+                                            },
+                                            modifier = Modifier.padding(
+                                                horizontal = 8.dp,
+                                                vertical = 4.dp,
+                                            ),
+                                        )
+                                    }
                                 }
                             }
                         }

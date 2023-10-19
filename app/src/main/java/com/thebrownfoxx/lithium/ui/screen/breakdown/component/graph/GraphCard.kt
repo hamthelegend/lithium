@@ -21,7 +21,7 @@ import com.thebrownfoxx.lithium.ui.component.Elevation
 import com.thebrownfoxx.lithium.ui.component.VerticalSpacer
 
 @Composable
-fun Graph(
+fun GraphCard(
     label: String,
     modifier: Modifier = Modifier,
     content: @Composable () -> Unit,
@@ -54,7 +54,7 @@ fun Graph(
 fun GraphPreview() {
     val feelingCategoryPercents = remember { Sample.CheckIns.feelingCategoryPercents }
 
-    Graph(
+    GraphCard(
         label = "Overall mood",
         modifier = Modifier.padding(16.dp),
     ) {

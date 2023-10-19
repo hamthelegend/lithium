@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
+import com.thebrownfoxx.lithium.ui.screen.breakdown.BreakdownViewModel
 import com.thebrownfoxx.lithium.ui.screen.checkin.CheckInViewModel
 import com.thebrownfoxx.lithium.ui.screen.home.HomeViewModel
 
@@ -17,6 +18,9 @@ object AppViewModelProvider {
                 lithiumRepository = lithiumApplication.container.lithiumRepository,
                 application = lithiumApplication,
             )
+        }
+        initializer {
+            BreakdownViewModel(lithiumApplication.container.lithiumRepository)
         }
     }
 }

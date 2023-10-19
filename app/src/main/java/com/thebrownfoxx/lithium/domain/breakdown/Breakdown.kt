@@ -31,7 +31,7 @@ data class Breakdown(
 )
 
 data class Breakdowns(
-    val allTime: Breakdown,
+    val allTime: Breakdown?,
     val yearly: List<Breakdown>,
     val monthly: List<Breakdown>,
 )

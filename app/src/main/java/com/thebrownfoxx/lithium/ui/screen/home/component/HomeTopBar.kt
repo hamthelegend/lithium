@@ -11,6 +11,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material.icons.filled.BarChart
 import androidx.compose.material.icons.filled.Undo
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -24,6 +25,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import com.thebrownfoxx.lithium.R
@@ -42,6 +45,8 @@ fun HomeTopBar(
     feelingCategoriesToday: List<FeelingCategory>,
     showUndoButton: Boolean,
     onUndoDeleteCheckIn: () -> Unit,
+    onShowBreakdown: () -> Unit,
+    showBreakdownButton: Boolean,
     modifier: Modifier = Modifier,
     scrollBehavior: TopAppBarScrollBehavior? = null,
 ) {
@@ -62,9 +67,24 @@ fun HomeTopBar(
         collapsedContent = {
             Text(
                 text = stringResource(R.string.app_name),
+                fontFamily = FontFamily.Cursive,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.fillMaxWidth(),
             )
+        },
+        navigationIcon = {
+            AnimatedVisibility(
+                visible = showBreakdownButton,
+                enter = scaleIn() + fadeIn(),
+                exit = scaleOut() + fadeOut(),
+            ) {
+                IconButton(onClick = onShowBreakdown) {
+                    Icon(
+                        imageVector = LithiumIcons.BarChart,
+                        contentDescription = stringResource(R.string.breakdown)
+                    )
+                }
+            }
         },
         background = {
             AnimatedContent(
@@ -93,7 +113,11 @@ fun HomeTopBar(
             }
         }
     ) {
-        Text(text = stringResource(R.string.app_name))
+        Text(
+            text = stringResource(R.string.app_name),
+            fontFamily = FontFamily.Cursive,
+            fontWeight = FontWeight.ExtraBold,
+        )
     }
 }
 
@@ -108,6 +132,8 @@ fun BlankHomeTopBarPreview() {
                 scrollBehavior = scrollBehavior,
                 showUndoButton = true,
                 onUndoDeleteCheckIn = {},
+                showBreakdownButton = false,
+                onShowBreakdown = {},
             )
         }
     }
@@ -129,6 +155,8 @@ fun FilledHomeTopBarPreview() {
                 scrollBehavior = scrollBehavior,
                 showUndoButton = true,
                 onUndoDeleteCheckIn = {},
+                showBreakdownButton = false,
+                onShowBreakdown = {},
             )
         }
     }

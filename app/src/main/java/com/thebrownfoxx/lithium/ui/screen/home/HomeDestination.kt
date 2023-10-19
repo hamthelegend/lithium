@@ -8,6 +8,7 @@ import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.thebrownfoxx.lithium.AppViewModelProvider
 import com.thebrownfoxx.lithium.ui.screen.ScreenTransitions
+import com.thebrownfoxx.lithium.ui.screen.destinations.BreakdownDestination
 import com.thebrownfoxx.lithium.ui.screen.destinations.CheckInDestination
 
 @Destination(start = true, style = ScreenTransitions::class)
@@ -21,6 +22,7 @@ fun Home(
         val checkInsByDate by checkInsByDate.collectAsStateWithLifecycle()
         val feelingCategoriesToday by feelingCategoriesToday.collectAsStateWithLifecycle()
         val showUndoButton by showUndoButton.collectAsStateWithLifecycle()
+        val showBreakdownButton by showBreakdownButton.collectAsStateWithLifecycle()
 
         HomeScreen(
             checkInsByDate = checkInsByDate,
@@ -29,6 +31,8 @@ fun Home(
             showUndoButton = showUndoButton,
             onDeleteCheckIn = ::onDeleteCheckIn,
             onUndoDeleteCheckIn = ::onUndoDeleteCheckIn,
+            onShowBreakdown = { navigator.navigate(BreakdownDestination) },
+            showBreakdownButton = showBreakdownButton,
         )
     }
 }

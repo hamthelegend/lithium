@@ -1,5 +1,6 @@
 package com.thebrownfoxx.lithium.ui.screen.breakdown.component
 
+import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -42,8 +43,8 @@ import java.time.format.DateTimeFormatter
 fun BreakdownTopBar(
     breakdownPeriod: BreakdownPeriod,
     onToggleBreakdownPeriod: () -> Unit,
-    datePeriods: List<OpenEndRange<LocalDate>>,
-    selectedDatePeriod: OpenEndRange<LocalDate>,
+    datePeriods: List<OpenEndRange<LocalDate>?>,
+    selectedDatePeriod: OpenEndRange<LocalDate>?,
     onSelectedDatePeriodChange: (OpenEndRange<LocalDate>) -> Unit,
     onNavigateUp: () -> Unit,
     modifier: Modifier = Modifier,
@@ -78,32 +79,38 @@ fun BreakdownTopBar(
                 }
             },
         ) {
-            Text(text = text)
+            AnimatedContent(targetState = text) { text ->
+                Text(text = text)
+            }
         }
         AnimatedVisibility(visible = breakdownPeriod != AllTime) {
-            ScrollableTabRow(
-                selectedTabIndex = datePeriods.indexOf(selectedDatePeriod),
-                edgePadding = 16.dp,
-                containerColor = MaterialTheme.colorScheme
-                    .surfaceColorAtElevation(Elevation.level(1)),
-                divider = {},
-                modifier = Modifier.fillMaxWidth(),
-            ) {
-                for (datePeriod in datePeriods) {
-                    val periodText = when (breakdownPeriod) {
-                        AllTime -> stringResource(R.string.all_time)
-                        Yearly -> datePeriod.start.year.toString()
-                        Monthly -> DateTimeFormatter.ofPattern("LLLL yyyy")
-                            .format(datePeriod.start)
-                    }
-                    Tab(
-                        selected = datePeriod == selectedDatePeriod,
-                        onClick = { onSelectedDatePeriodChange(datePeriod) },
-                    ) {
-                        Text(
-                            text = periodText,
-                            modifier = Modifier.padding(16.dp),
-                        )
+            if (selectedDatePeriod != null) {
+                ScrollableTabRow(
+                    selectedTabIndex = datePeriods.indexOf(selectedDatePeriod),
+                    edgePadding = 16.dp,
+                    containerColor = MaterialTheme.colorScheme
+                        .surfaceColorAtElevation(Elevation.level(2)),
+                    divider = {},
+                    modifier = Modifier.fillMaxWidth(),
+                ) {
+                    for (datePeriod in datePeriods) {
+                        if (datePeriod != null) {
+                            val periodText = when (breakdownPeriod) {
+                                AllTime -> stringResource(R.string.all_time)
+                                Yearly -> datePeriod.start.year.toString()
+                                Monthly -> DateTimeFormatter.ofPattern("LLLL yyyy")
+                                    .format(datePeriod.start)
+                            }
+                            Tab(
+                                selected = datePeriod == selectedDatePeriod,
+                                onClick = { onSelectedDatePeriodChange(datePeriod) },
+                            ) {
+                                Text(
+                                    text = periodText,
+                                    modifier = Modifier.padding(16.dp),
+                                )
+                            }
+                        }
                     }
                 }
             }
@@ -120,7 +127,8 @@ fun BreakdownTopBarPreview() {
     var breakdownPeriod by remember { mutableStateOf(Monthly) }
     val datePeriods = remember(breakdownPeriod) {
         when (breakdownPeriod) {
-            AllTime -> listOf(breakdowns.allTime.datePeriod)
+            AllTime -> breakdowns.allTime?.let { listOf(breakdowns.allTime.datePeriod) }
+                ?: listOf()
             Yearly -> breakdowns.yearly.map { it.datePeriod }
             Monthly -> breakdowns.monthly.map { it.datePeriod }
         }
